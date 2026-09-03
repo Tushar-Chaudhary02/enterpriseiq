@@ -4,22 +4,30 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "enterpriseiq"
-version = "0.1.0"
+version = "0.2.0"
 description = "An agentic AI customer intelligence and retention platform."
 readme = "README.md"
 requires-python = ">=3.11,<3.13"
 dependencies = [
+    "joblib>=1.4,<2",
+    "numpy>=1.26,<3",
+    "pandas>=2.2,<4",
     "pydantic>=2.10,<3",
     "pydantic-settings>=2.7,<3",
+    "scikit-learn>=1.5,<2",
 ]
 
 [project.optional-dependencies]
 dev = [
+    "ipykernel>=6.29,<7",
+    "jupyterlab>=4.3,<5",
+    "matplotlib>=3.9,<4",
     "mypy>=1.14,<2",
     "pre-commit>=4,<5",
     "pytest>=8.3,<9",
     "pytest-cov>=6,<7",
     "ruff>=0.9,<1",
+    "seaborn>=0.13,<1",
 ]
 
 [tool.setuptools.packages.find]
