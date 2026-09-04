@@ -44,6 +44,11 @@ agentic AI workflows.
 - Dummy-classifier benchmark
 - Logistic Regression baseline
 - Automated model metrics and confusion matrices
+- Five-fold stratified cross-validation
+- Logistic Regression, Decision Tree, Random Forest, and XGBoost comparison
+- PR-AUC-based model selection
+- Held-out champion-model evaluation
+- Automated model-comparison reports
 
 ### Current model workflow
 
@@ -88,6 +93,11 @@ ruff format --check .
 mypy src tests
 python -m pytest
 ```
+
+Run cross-validated model comparison with:
+
+```bash
+python -m enterpriseiq.ml.compare_models
 
 ## Project status
 
