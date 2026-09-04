@@ -1,0 +1,41 @@
+{
+  "model_name": "enterpriseiq-churn",
+  "model_version": "1.0.0",
+  "base_algorithm": "xgboost",
+  "calibration_method": "sigmoid",
+  "operating_threshold": 0.08,
+  "training_rows": 5634,
+  "test_rows": 1409,
+  "numeric_features": [
+    "tenure",
+    "MonthlyCharges",
+    "TotalCharges"
+  ],
+  "categorical_features": [
+    "gender",
+    "SeniorCitizen",
+    "Partner",
+    "Dependents",
+    "PhoneService",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "OnlineBackup",
+    "DeviceProtection",
+    "TechSupport",
+    "StreamingTV",
+    "StreamingMovies",
+    "Contract",
+    "PaperlessBilling",
+    "PaymentMethod"
+  ],
+  "dataset_sha256": "16320c9c1ec72448db59aa0a26a0b95401046bef5d02fd3aeb906448e3055e91",
+  "python_version": "3.11.16",
+  "package_versions": {
+    "mlflow": "3.15.2",
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.9.0",
+    "xgboost": "3.2.0"
+  }
+}

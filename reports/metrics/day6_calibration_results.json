@@ -1,0 +1,52 @@
+{
+  "model_version": "1.0.0",
+  "base_model": "xgboost",
+  "calibration_method": "sigmoid",
+  "selected_threshold": 0.08,
+  "probability_metrics_before": {
+    "brier_score": 0.13564751281404638,
+    "log_loss": 0.41525351310833164
+  },
+  "probability_metrics_after": {
+    "brier_score": 0.13577456230917745,
+    "log_loss": 0.42232615685795155
+  },
+  "default_threshold_metrics": {
+    "accuracy": 0.8019872249822569,
+    "precision": 0.6727272727272727,
+    "recall": 0.4946524064171123,
+    "f1": 0.5701078582434514,
+    "roc_auc": 0.8475690407915472,
+    "pr_auc": 0.6662738536481936,
+    "confusion_matrix": [
+      [
+        945,
+        90
+      ],
+      [
+        189,
+        185
+      ]
+    ]
+  },
+  "operating_threshold_metrics": {
+    "accuracy": 0.5727466288147622,
+    "precision": 0.3805031446540881,
+    "recall": 0.9705882352941176,
+    "f1": 0.5466867469879518,
+    "roc_auc": 0.8475690407915472,
+    "pr_auc": 0.6662738536481936,
+    "confusion_matrix": [
+      [
+        444,
+        591
+      ],
+      [
+        11,
+        363
+      ]
+    ]
+  },
+  "default_business_cost": 99000.0,
+  "operating_business_cost": 35050.0
+}

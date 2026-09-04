@@ -37,6 +37,11 @@ artifacts/
 models/
 mlruns/
 
+# MLflow local runtime data
+mlflow.db
+mlruns/
+mlartifacts/
+
 # Local databases
 *.db
 *.sqlite

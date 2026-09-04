@@ -56,6 +56,13 @@ agentic AI workflows.
 - False-positive and false-negative cost analysis
 - Precision-recall and ROC evaluation
 - Serialized production ML candidate
+- Sigmoid probability calibration
+- Brier-score and log-loss evaluation
+- Calibrated business-threshold selection
+- Permutation feature importance
+- MLflow experiment tracking
+- Reproducible model metadata
+- Production-oriented model card
 
 ### Current model workflow
 
@@ -111,7 +118,27 @@ Run production-candidate optimization with:
 
 ```bash
 python -m enterpriseiq.ml.optimize_model
+```
 
+Run model finalization and MLflow tracking with:
+
+```bash
+python -m enterpriseiq.ml.finalize_model
+```
+
+View experiments locally with:
+
+```bash
+mlflow ui \
+  --backend-store-uri sqlite:///mlruns/mlflow.db \
+  --port 5000
+```
+
+Then open:
+
+```bash
+http://127.0.0.1:5000
+```
 
 ## Project status
 
