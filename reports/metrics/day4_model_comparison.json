@@ -15,8 +15,7 @@
       "roc_auc_mean": 0.8458137264664604,
       "roc_auc_std": 0.011870306735324677,
       "pr_auc_mean": 0.6636393745049303,
-      "pr_auc_std": 0.020258073408442448,
-      "fit_time_mean_seconds": 0.08803801536560059
+      "pr_auc_std": 0.020258073408442448
     },
     {
       "model": "logistic_regression",
@@ -31,8 +30,7 @@
       "roc_auc_mean": 0.846128002903009,
       "roc_auc_std": 0.013988717190192507,
       "pr_auc_mean": 0.6614360727851722,
-      "pr_auc_std": 0.02160204470635396,
-      "fit_time_mean_seconds": 0.02892923355102539
+      "pr_auc_std": 0.02160204470635396
     },
     {
       "model": "random_forest",
@@ -47,8 +45,7 @@
       "roc_auc_mean": 0.8204683259877976,
       "roc_auc_std": 0.014716316888252466,
       "pr_auc_mean": 0.6112513660745096,
-      "pr_auc_std": 0.035330653327484245,
-      "fit_time_mean_seconds": 0.5871439456939698
+      "pr_auc_std": 0.035330653327484245
     },
     {
       "model": "decision_tree",
@@ -63,8 +60,7 @@
       "roc_auc_mean": 0.6513308341299944,
       "roc_auc_std": 0.00817969838927246,
       "pr_auc_mean": 0.37338972205988163,
-      "pr_auc_std": 0.007800977011004248,
-      "fit_time_mean_seconds": 0.029831790924072267
+      "pr_auc_std": 0.007800977011004248
     },
     {
       "model": "dummy_classifier",
@@ -79,8 +75,7 @@
       "roc_auc_mean": 0.5,
       "roc_auc_std": 0.0,
       "pr_auc_mean": 0.2653532460941748,
-      "pr_auc_std": 0.00010537167400405242,
-      "fit_time_mean_seconds": 0.024907016754150392
+      "pr_auc_std": 0.00010537167400405242
     }
   ],
   "champion_test_metrics": {

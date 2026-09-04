@@ -89,13 +89,6 @@ def cross_validate_models(
             row[f"{metric_name}_mean"] = float(values.mean())
             row[f"{metric_name}_std"] = float(values.std(ddof=1))
 
-        fit_times = np.asarray(
-            scores["fit_time"],
-            dtype=np.float64,
-        )
-
-        row["fit_time_mean_seconds"] = float(fit_times.mean())
-
         rows.append(row)
 
     results = pd.DataFrame(rows)
