@@ -4,12 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "enterpriseiq"
-version = "0.6.0"
+dynamic = ["version"]
 description = "An agentic AI customer intelligence and retention platform."
 readme = "README.md"
 requires-python = ">=3.11,<3.13"
 dependencies = [
     "joblib>=1.4,<2",
+    "openai>=2,<3",
     "anyio==4.14.2",
     "fastapi>=0.116,<1",
     "uvicorn[standard]>=0.35,<1",
@@ -39,6 +40,9 @@ dev = [
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.dynamic]
+version = {attr = "enterpriseiq.__version__"}
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -2,9 +2,18 @@
 
 from fastapi.testclient import TestClient
 
+from enterpriseiq.api.analysis_service import CustomerAnalysisResult
 from enterpriseiq.api.main import create_app
-from enterpriseiq.api.schemas import ChurnPredictionRequest
+from enterpriseiq.api.schemas import (
+    ChurnPredictionRequest,
+    CustomerAnalysisRequest,
+)
 from enterpriseiq.api.service import PredictionResult
+from enterpriseiq.llm.schemas import (
+    LLMCustomerAnalysis,
+    RetentionAction,
+    StructuredGenerationResult,
+)
 
 VALID_PAYLOAD: dict[str, object] = {
     "customer_id": "demo-001",
@@ -47,6 +56,50 @@ class FakePredictionService:
         )
 
 
+class FakeCustomerAnalysisService:
+    """Deterministic structured-generation workflow used by API tests."""
+
+    def analyze(
+        self,
+        request: CustomerAnalysisRequest,
+    ) -> CustomerAnalysisResult:
+        return CustomerAnalysisResult(
+            prediction=PredictionResult(
+                prediction="high_risk",
+                churn_probability=0.91,
+            ),
+            generation=StructuredGenerationResult(
+                analysis=LLMCustomerAnalysis(
+                    executive_summary=("The customer has elevated modeled churn risk."),
+                    risk_factors=[
+                        "Short tenure",
+                        "Month-to-month contract",
+                    ],
+                    recommended_actions=[
+                        RetentionAction(
+                            priority="high",
+                            action="Schedule a retention review.",
+                            rationale=("Confirm needs before proposing an account change."),
+                            requires_human_approval=True,
+                        ),
+                    ],
+                    customer_message_draft=("We would like to discuss your service experience."),
+                    requires_human_review=True,
+                    limitations=[
+                        "No company policy was supplied.",
+                    ],
+                ),
+                provider="fake",
+                model="fake-model",
+                response_id="response-test-001",
+                input_tokens=120,
+                output_tokens=80,
+                total_tokens=200,
+                latency_ms=12.5,
+            ),
+        )
+
+
 def test_health_endpoints() -> None:
     with TestClient(create_app(FakePredictionService())) as client:
         live_response = client.get("/health/live")
@@ -60,6 +113,7 @@ def test_health_endpoints() -> None:
         "status": "ready",
         "model_name": "xgboost",
         "model_version": "1.0.0",
+        "llm_configured": False,
     }
 
 
@@ -109,3 +163,47 @@ def test_unknown_fields_are_rejected() -> None:
         )
 
     assert response.status_code == 422
+
+
+def test_customer_analysis_endpoint_returns_structured_output() -> None:
+    application = create_app(
+        FakePredictionService(),
+        FakeCustomerAnalysisService(),
+    )
+
+    with TestClient(application) as client:
+        response = client.post(
+            "/api/v1/ai/customer-analysis",
+            json={
+                "customer": VALID_PAYLOAD,
+                "support_summary": ("The customer reported intermittent service."),
+            },
+        )
+
+    assert response.status_code == 200
+
+    payload = response.json()
+
+    assert payload["churn_prediction"]["prediction"] == "high_risk"
+    assert payload["analysis"]["requires_human_review"] is True
+    assert payload["metadata"] == {
+        "provider": "fake",
+        "model": "fake-model",
+        "prompt_version": "customer-retention-v1",
+        "response_id": "response-test-001",
+        "input_tokens": 120,
+        "output_tokens": 80,
+        "total_tokens": 200,
+        "latency_ms": 12.5,
+    }
+
+
+def test_customer_analysis_requires_configured_provider() -> None:
+    with TestClient(create_app(FakePredictionService())) as client:
+        response = client.post(
+            "/api/v1/ai/customer-analysis",
+            json={"customer": VALID_PAYLOAD},
+        )
+
+    assert response.status_code == 503
+    assert response.json() == {"detail": "The LLM provider is not configured."}

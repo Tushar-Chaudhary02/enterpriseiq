@@ -4,6 +4,8 @@ from typing import Literal, TypeAlias
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from enterpriseiq.llm.schemas import LLMCustomerAnalysis
+
 YesNo: TypeAlias = Literal["Yes", "No"]
 RiskLabel: TypeAlias = Literal["high_risk", "low_risk"]
 InternetOption: TypeAlias = Literal[
@@ -110,3 +112,43 @@ class ReadinessResponse(BaseModel):
     status: Literal["ready"]
     model_name: str
     model_version: str
+    llm_configured: bool
+
+
+class CustomerAnalysisRequest(BaseModel):
+    """Customer evidence and business goal supplied to the analysis workflow."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    customer: ChurnPredictionRequest
+    support_summary: str | None = Field(
+        default=None,
+        max_length=2000,
+    )
+    analysis_goal: str = Field(
+        default="Recommend appropriate customer-retention actions.",
+        min_length=1,
+        max_length=300,
+    )
+
+
+class LLMResponseMetadata(BaseModel):
+    """Operational metadata returned without exposing prompts or credentials."""
+
+    provider: str
+    model: str
+    prompt_version: str
+    response_id: str
+    input_tokens: int = Field(ge=0)
+    output_tokens: int = Field(ge=0)
+    total_tokens: int = Field(ge=0)
+    latency_ms: float = Field(ge=0)
+
+
+class CustomerAnalysisResponse(BaseModel):
+    """Combined ML prediction and structured LLM decision support."""
+
+    customer_id: str | None
+    churn_prediction: ChurnPredictionResponse
+    analysis: LLMCustomerAnalysis
+    metadata: LLMResponseMetadata

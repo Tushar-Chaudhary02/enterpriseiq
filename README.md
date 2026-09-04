@@ -64,13 +64,74 @@ agentic AI workflows.
 - Reproducible model metadata
 - Production-oriented model card
 
+## Structured Customer Analysis
+
+EnterpriseIQ combines deterministic churn inference with structured LLM
+decision support.
+
+```mermaid
+flowchart TD
+    A[Customer request] --> B[XGBoost churn prediction]
+    B --> C[Versioned evidence prompt]
+    C --> D[OpenAI Responses API]
+    D --> E[Pydantic validation]
+    E --> F[FastAPI JSON response]
+```
+
+The machine-learning model calculates the churn probability. The LLM receives
+that fixed prediction along with the supplied customer attributes and support
+summary. It does not calculate or modify the prediction.
+
+The generated response includes:
+
+- An executive summary
+- Identified risk factors
+- Prioritized retention actions
+- Human-approval requirements
+- A customer-message draft
+- Known limitations
+- Token usage and latency metadata
+
+### Run a customer analysis
+
+Configure `OPENAI_API_KEY` in the ignored `.env` file and start the API:
+
+```bash
+uvicorn enterpriseiq.api.main:app --host 127.0.0.1 --port 8000
+```
+
+Send the included example request:
+
+```bash
+curl -X POST \
+  http://127.0.0.1:8000/api/v1/ai/customer-analysis \
+  -H "Content-Type: application/json" \
+  --data @examples/customer_analysis_request.json
+```
+
+### Failure behavior
+
+When an LLM provider is not configured or temporarily unavailable, the
+customer-analysis endpoint returns HTTP 503. The deterministic churn-prediction
+endpoint remains available.
+
+### Current limitations
+
+- Generated recommendations are decision support and require human review.
+- The LLM is grounded only in evidence supplied with the request.
+- Enterprise document retrieval and policy citations will be added through RAG.
+- Production authentication, rate limiting and distributed tracing are not yet
+  implemented.
+- The current calibration experiment did not improve Brier score or log loss;
+  the model card records this result transparently.
+
 ### Current model workflow
 
 Run baseline training with:
 
 ```bash
 python -m enterpriseiq.ml.train_baseline
-
+```
 ## Local setup
 
 Create the virtual environment:
