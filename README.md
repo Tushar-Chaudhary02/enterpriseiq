@@ -131,7 +131,8 @@ View experiments locally with:
 ```bash
 mlflow ui \
   --backend-store-uri sqlite:///mlruns/mlflow.db \
-  --port 5000
+  --port 5000 \
+  --workers 1
 ```
 
 Then open:

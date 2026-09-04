@@ -10,6 +10,10 @@ readme = "README.md"
 requires-python = ">=3.11,<3.13"
 dependencies = [
     "joblib>=1.4,<2",
+    "anyio==4.14.2",
+    "fastapi>=0.116,<1",
+    "uvicorn[standard]>=0.35,<1",
+    "httpx>=0.28,<1",
     "mlflow>=3,<4",
     "numpy>=1.26,<3",
     "pandas>=2.2,<4",
