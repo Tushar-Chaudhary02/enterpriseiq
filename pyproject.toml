@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "enterpriseiq"
-version = "0.2.0"
+version = "0.3.0"
 description = "An agentic AI customer intelligence and retention platform."
 readme = "README.md"
 requires-python = ">=3.11,<3.13"
@@ -23,6 +23,7 @@ dev = [
     "jupyterlab>=4.3,<5",
     "matplotlib>=3.9,<4",
     "mypy>=1.14,<2",
+    "pandas-stubs>=2.2,<3",
     "pre-commit>=4,<5",
     "pytest>=8.3,<9",
     "pytest-cov>=6,<7",
@@ -59,3 +60,12 @@ select = [
 python_version = "3.11"
 strict = true
 files = ["src", "tests"]
+
+[[tool.mypy.overrides]]
+module = [
+    "joblib",
+    "matplotlib.*",
+    "seaborn.*",
+    "sklearn.*",
+]
+ignore_missing_imports = true

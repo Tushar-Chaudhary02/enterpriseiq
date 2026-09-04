@@ -32,8 +32,25 @@ agentic AI workflows.
 
 ## Current project status
 
-Day 1 establishes the project package, configuration, testing, code-quality checks,
-continuous integration, and architecture documentation.
+### Completed
+
+- Professional Python package and configuration
+- Automated testing, linting, typing, and CI
+- Reproducible IBM customer-churn dataset download
+- Dataset schema validation
+- Exploratory data analysis and visualizations
+- Leakage-safe preprocessing pipeline
+- Stratified train/test splitting
+- Dummy-classifier benchmark
+- Logistic Regression baseline
+- Automated model metrics and confusion matrices
+
+### Current model workflow
+
+Run baseline training with:
+
+```bash
+python -m enterpriseiq.ml.train_baseline
 
 ## Local setup
 
