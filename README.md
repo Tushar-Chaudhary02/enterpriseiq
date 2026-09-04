@@ -49,6 +49,13 @@ agentic AI workflows.
 - PR-AUC-based model selection
 - Held-out champion-model evaluation
 - Automated model-comparison reports
+- Hyperparameter tuning for Logistic Regression and XGBoost
+- Grid search and reproducible randomized search
+- Out-of-fold probability generation
+- Business-aware classification-threshold selection
+- False-positive and false-negative cost analysis
+- Precision-recall and ROC evaluation
+- Serialized production ML candidate
 
 ### Current model workflow
 
@@ -98,6 +105,13 @@ Run cross-validated model comparison with:
 
 ```bash
 python -m enterpriseiq.ml.compare_models
+```
+
+Run production-candidate optimization with:
+
+```bash
+python -m enterpriseiq.ml.optimize_model
+
 
 ## Project status
 

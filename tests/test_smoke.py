@@ -9,6 +9,6 @@ def test_project_status_is_ready() -> None:
     status = project_status()
 
     assert status["name"] == "EnterpriseIQ"
-    assert status["version"] == "0.4.0"
+    assert status["version"] == "0.5.0"
     assert status["environment"] == "development"
     assert status["status"] == "ready"

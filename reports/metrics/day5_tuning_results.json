@@ -1,0 +1,65 @@
+{
+  "business_assumptions": {
+    "false_positive_cost": 50.0,
+    "false_negative_cost": 500.0,
+    "minimum_recall": 0.75
+  },
+  "best_cv_pr_auc": {
+    "logistic_regression": 0.6614571744208149,
+    "xgboost": 0.6711770291849661
+  },
+  "best_parameters": {
+    "logistic_regression": {
+      "classifier__C": 0.5,
+      "classifier__class_weight": null
+    },
+    "xgboost": {
+      "classifier__subsample": 1.0,
+      "classifier__reg_lambda": 2.0,
+      "classifier__reg_alpha": 0.5,
+      "classifier__n_estimators": 250,
+      "classifier__min_child_weight": 5,
+      "classifier__max_depth": 2,
+      "classifier__learning_rate": 0.05,
+      "classifier__colsample_bytree": 0.7
+    }
+  },
+  "selected_model": "xgboost",
+  "selected_threshold": 0.08,
+  "held_out_default_threshold_metrics": {
+    "accuracy": 0.7984386089425124,
+    "precision": 0.6584507042253521,
+    "recall": 0.5,
+    "f1": 0.5683890577507599,
+    "roc_auc": 0.8455979229636519,
+    "pr_auc": 0.6613803311379571,
+    "confusion_matrix": [
+      [
+        938,
+        97
+      ],
+      [
+        187,
+        187
+      ]
+    ]
+  },
+  "held_out_selected_threshold_metrics": {
+    "accuracy": 0.5883605393896381,
+    "precision": 0.38924731182795697,
+    "recall": 0.9679144385026738,
+    "f1": 0.5552147239263804,
+    "roc_auc": 0.8455979229636519,
+    "pr_auc": 0.6613803311379571,
+    "confusion_matrix": [
+      [
+        467,
+        568
+      ],
+      [
+        12,
+        362
+      ]
+    ]
+  }
+}

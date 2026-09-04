@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "enterpriseiq"
-version = "0.4.0"
+version = "0.5.0"
 description = "An agentic AI customer intelligence and retention platform."
 readme = "README.md"
 requires-python = ">=3.11,<3.13"
